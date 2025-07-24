@@ -1,73 +1,128 @@
-# Welcome to your Lovable project
 
-## Project info
+# 🔗 URL Shortener
 
-**URL**: https://lovable.dev/projects/5bfab36e-70f1-43cb-9ad9-fed7edbda820
+A modern and minimal URL Shortener web application built using **Next.js**, **React**, and **Supabase**.  
+Easily shorten long URLs, track visit analytics, and manage your links from a sleek dashboard.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Tech Stack
 
-**Use Lovable**
+- **Frontend**: Next.js (App Router), React, Tailwind CSS (optional)
+- **Backend**: Supabase (PostgreSQL, Auth, Realtime)
+- **Deployment**: Vercel (Recommended)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5bfab36e-70f1-43cb-9ad9-fed7edbda820) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 📸 Features
 
-**Use your preferred IDE**
+- 🔐 User authentication (Supabase Auth)
+- 🔗 Shorten long URLs instantly
+- 📊 Track click count and creation date
+- 🗂️ Logged-in users can view and manage their shortened URLs
+- ⚡ Fully serverless & scalable
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🔧 Setup Instructions
 
-Follow these steps:
+### 1. Clone the Repository
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+git clone https://github.com/your-username/url-shortener.git
+cd url-shortener
+2. Install Dependencies
+bash
+Copy
+Edit
+npm install
+# or
+yarn install
+3. Configure Environment Variables
+Create a .env.local file in the root and add the following:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+env
+Copy
+Edit
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+You can find these in your Supabase project dashboard.
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. Set Up Supabase Database
+Run the following SQL in Supabase SQL editor to create the urls table:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+sql
+Copy
+Edit
+create table urls (
+  id uuid default uuid_generate_v4() primary key,
+  original_url text not null,
+  short_code text unique not null,
+  click_count int default 0,
+  user_id uuid references auth.users(id),
+  created_at timestamp default now()
+);
+Enable Row Level Security (RLS) and add policies if you're using auth.
+
+🧪 Running Locally
+bash
+Copy
+Edit
 npm run dev
-```
+# or
+yarn dev
+Visit http://localhost:3000 to access the app.
 
-**Edit a file directly in GitHub**
+🌍 Deployment
+You can deploy the app easily using Vercel:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+bash
+Copy
+Edit
+vercel login
+vercel --prod
+📁 Folder Structure
+bash
+Copy
+Edit
+/pages
+  /api
+    /shorten.ts      # API route to generate short URL
+    /[code].ts       # Redirect handler
+/components
+  LinkCard.tsx       # UI for displaying shortened links
+/lib
+  supabaseClient.ts  # Supabase client init
+🛡️ Security Notes
+Make sure to enable Row Level Security (RLS) in Supabase
 
-**Use GitHub Codespaces**
+Validate input URLs on both client and server
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+📃 License
+This project is licensed under the MIT License.
 
-## What technologies are used for this project?
+🙌 Acknowledgements
+Supabase
 
-This project is built with:
+Next.js
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Vercel
 
-## How can I deploy this project?
+yaml
+Copy
+Edit
 
-Simply open [Lovable](https://lovable.dev/projects/5bfab36e-70f1-43cb-9ad9-fed7edbda820) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+Let me know if you want the `README` to include screenshots, dark mode, multi-user support, or analytics features.
 
-Yes, you can!
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+
+
+
+
+Ask ChatGPT
+
+
